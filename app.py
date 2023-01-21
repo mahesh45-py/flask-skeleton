@@ -7,4 +7,4 @@ def home():
     print("home page loaded")
     return 'working skeleton'
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0',debug=False)
