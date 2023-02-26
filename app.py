@@ -22,6 +22,7 @@ def push():
 
 @app.route('/pullView')
 def pullView():
+    data['readable'] = False
     return render_template("statement.html",data=data['data'])
 
 @app.route('/pull')
