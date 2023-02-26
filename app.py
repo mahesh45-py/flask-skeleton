@@ -22,12 +22,7 @@ def push():
 
 @app.route('/pullView')
 def pullView():
-    buffer = data
-    data = {
-        "readable": False,
-        "data":[]
-    }   
-    return render_template("statement.html",data=buffer['data'])
+    return render_template("statement.html",data=data['data'])
 
 @app.route('/pull')
 def pull():
@@ -58,6 +53,7 @@ def pushExel():
         try:
             file = request.files['file']
             df = pd.read_excel(file,header=13)
+            data["data"] = []
             for index, row in df.iterrows():
                 
                 date = str(row[1]).split(' ')[0]
@@ -65,13 +61,13 @@ def pushExel():
                 name = translator.translate(row[10], src='en', dest = 'te').text
                 type = row[4]
                 if type == 'C':
-                    data['readable']=True
+                    
                     data["data"].append({
                         'date':date,
                         'name':name,
                         'amount':amount
                     })
-                    
+                data['readable']=True
             
             return jsonify({
                 "status":True,
